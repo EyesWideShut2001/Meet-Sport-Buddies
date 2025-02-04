@@ -1,0 +1,29 @@
+<h1>{{title}}</h1>
+
+<button (click)="onClick()">Clickuieste-ma
+   
+</button>
+
+
+<ul>
+    @for (user of users; track user.id) 
+   {
+        <li>
+             {{user.id}} - {{user.userName}}
+        </li>
+   }
+   
+</ul>
+
+<ul>
+     @for (user of usersFiltred; track user.id) 
+    {
+         <li>
+              {{user.id}} - {{user.userName}}
+         </li>
+    }
+    
+ </ul>
+ 
+
+
