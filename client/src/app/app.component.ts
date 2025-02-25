@@ -1,39 +1,30 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavBarComponent } from "./nav-bar/nav-bar.component";
+import { AccountService } from './_services/account.service';
+import { HomeComponent } from "./home/home.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [NavBarComponent, HomeComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-
-  http = inject(HttpClient);
-  title = 'Meet your sport buddies';
-  users: any;
-  usersFiltred:any;
+  private accountService = inject(AccountService);
 
   ngOnInit(): void {
-    this.http.get('https://localhost:5001/api/users').subscribe({
-      next: (response) => (this.users = response),
-      error: (error) => console.error(error),
-      complete: () => console.log('Request has completed'),
-    });
+    this.setCurrentUser();
   }
 
-  onClick() {
-    this.http.get('https://localhost:5001/api/users').subscribe({
-      next: (response) => {
-        const res = response as any[];
-        console.log(res);
-        this.usersFiltred = res.filter(e => e.userName.startsWith('s') || e.userName.startsWith('A'));
-      },
-      error: (error) => console.error(error),
-      complete: () => console.log('Request has completed'),
-    });
+  setCurrentUser()
+  {
+    const userString = localStorage.getItem('user');
+    if(!userString) return;
+    const user = JSON.parse(userString);
+    this.accountService.currentUser.set(user);
   }
+
 
 }
