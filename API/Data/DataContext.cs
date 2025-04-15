@@ -1,10 +1,17 @@
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.data;
+namespace API.Data;
 
 public class DataContext(DbContextOptions options) : DbContext(options)
 {
+
+    public DbSet<Photo> Photos {get; set;}
+    public DbSet<Sport> Sports {get; set;}
     public DbSet<AppUser> Users {get; set;}
+
+ 
+
+
 
 }
