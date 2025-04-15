@@ -31,4 +31,17 @@ public class UsersController(IUserRepository userRepository): BaseApiController
 
         return  user;// sau ok(users)
     }
+
+        [HttpGet("sport/{sport}")] 
+    public async Task < ActionResult <IEnumerable<MemberDto>> > GetUsersBySport(string sport)
+    {
+        var users = await userRepository.GetMembersAsync();
+        // users.Where( u => u.Sports )
+        // foreach (var u in users)
+        // {
+
+        // }
+
+        return  Ok(users);
+    }
 }
